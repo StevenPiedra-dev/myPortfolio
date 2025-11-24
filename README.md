@@ -1,16 +1,51 @@
-# React + Vite
+Personal Portfolio – Steven Piedra
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This repository contains the source code for my personal portfolio website.
+The goal of this project is to showcase my professional profile, technical skills, and experience across software development, data analysis, and artificial intelligence.
 
-Currently, two official plugins are available:
+🚀 About the Project
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+This portfolio is designed to be clean, modern, and fully responsive.
+It includes several sections that highlight my background, featured projects, technical abilities, and ways to connect with me.
 
-## React Compiler
+👨‍💻 Who I Am
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+I am a Full-Stack Developer, Data Analyst, and AI Developer with experience in emerging technologies, financial and banking environments, data pipelines, and building digital solutions that solve real business problems.
 
-## Expanding the ESLint configuration
+🧩 Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+The portfolio is built with:
+
+React
+JavaScript (ES6+)
+HTML5 & CSS3
+Responsive Design
+Node.js + NPM
+Version control with Git & GitHub
+MongoDB
+
+📂 Project Structure
+
+The project follows a clean and modular structure, separating components, styles, and scripts for scalability and maintainability.
+
+/src
+  /components
+  /assets
+  /styles
+  /scripts
+/public
+
+📬 Contact
+
+You can reach me through any of the following:
+
+GitHub: https://github.com/stevenpiedra-dev
+]
+
+LinkedIn: https://www.linkedin.com/in/stevenpiedra
+
+Email: Steven.piedra02@gmail.com
+
+📄 License
+
+This project is open-source and available under the MIT License.

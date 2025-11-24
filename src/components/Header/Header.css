@@ -1,0 +1,249 @@
+:root{
+  --page-bg: #eaf4ff;           /* light blue background */
+  --header-bg: #04376b;         /* dark-blue header */
+  --accent: #0ea5e9;
+  --header-text: #ffffff;
+  --muted-white: rgba(255,255,255,0.92);
+  --social-bg: rgba(255,255,255,0.06);
+  --social-hover: rgba(255,255,255,0.12);
+
+  /* header heights (used for body padding so header doesn't overlap content) */
+  --header-height-desktop: 88px;
+  --header-height-mobile: 120px;
+  --container-max: 1100px;
+}
+
+/* ---------------------------
+   Global reset / layout safety
+   --------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  background: var(--page-bg);
+  color: #0b2540;
+  font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  overflow-x: hidden; /* Prevent horizontal scroll (fixes elements pushing to the right) */
+}
+
+/* Avoid header overlap: add top padding equal to header height.
+   If you keep header fixed, keep these rules in global CSS. */
+body {
+  padding-top: var(--header-height-desktop);
+}
+
+/* On smaller screens reduce the top padding */
+@media (max-width: 720px) {
+  body { padding-top: var(--header-height-mobile); }
+}
+
+/* ---------------------------
+   Header (full-width sticky)
+   --------------------------- */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 9999;
+  background: var(--header-bg);
+  color: var(--header-text);
+  box-shadow: 0 2px 12px rgba(2,6,23,0.18);
+  display: flex;
+  align-items: center;
+  height: var(--header-height-desktop);
+  will-change: transform;
+}
+
+/* Inner container centers content up to container max width */
+.header-inner {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+}
+
+/* ---------------------------
+   Brand / Avatar / Text
+   --------------------------- */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  text-decoration: none;
+  color: var(--header-text);
+}
+
+/* Avatar */
+.brand-avatar {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 12px;
+  border: 2px solid rgba(255,255,255,0.06);
+  box-shadow: 0 4px 12px rgba(2,6,23,0.28);
+  display: block;
+}
+
+/* Brand text block */
+.brand-text {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+
+/* Name */
+.brand-name {
+  margin: 0;
+  font-size: 1.125rem;
+  font-weight: 700;
+  letter-spacing: -0.2px;
+  color: var(--header-text);
+}
+
+/* Roles / subtitle */
+.brand-roles {
+  margin: 4px 0 0 0;
+  font-size: 0.88rem;
+  color: var(--muted-white);
+  opacity: 0.96;
+}
+
+/* If you want the name to link but not change layout: */
+.brand-name-link { text-decoration: none; color: inherit; }
+
+/* ---------------------------
+   Social Icons / Right area
+   --------------------------- */
+.socials {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+/* Social link box */
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 10px;
+  background: var(--social-bg);
+  color: var(--header-text);
+  text-decoration: none;
+  border: 1px solid rgba(255,255,255,0.03);
+  transition: transform 140ms ease, background 140ms ease, box-shadow 140ms ease;
+}
+
+/* Hover & focus */
+.social-link:hover,
+.social-link:focus {
+  transform: translateY(-3px);
+  background: var(--social-hover);
+  box-shadow: 0 6px 18px rgba(2,6,23,0.18);
+  outline: none;
+}
+
+/* SVG sizing inside links */
+.social-link svg {
+  width: 20px;
+  height: 20px;
+  display: block;
+  fill: currentColor;
+}
+
+/* ---------------------------
+   Responsive tweaks
+   --------------------------- */
+
+/* Tablet */
+@media (max-width: 980px) {
+  .brand-avatar { width: 64px; height: 64px; }
+  .brand-name { font-size: 1.03rem; }
+  .brand-roles { font-size: 0.84rem; }
+  .social-link { width: 40px; height: 40px; }
+  body { padding-top: 84px; } /* slightly smaller header spacing */
+}
+
+/* Mobile: stack and center content (prevents right-aligned push) */
+@media (max-width: 720px) {
+
+  /* Let header grow to accomodate stacked content */
+  .site-header {
+    height: auto;
+    padding: 10px 8px;
+  }
+
+  .header-inner {
+    flex-direction: column;
+    align-items: center;      /* center horizontally */
+    justify-content: center;
+    gap: 8px;
+    padding: 8px 12px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* Brand centered and full-width to avoid lateral pushing */
+  .brand {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    padding: 0;
+  }
+
+  /* Center the brand text */
+  .brand-text {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    margin-left: 0;
+  }
+
+  /* Social icons row centered on its own line */
+  .socials {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    padding-top: 6px;
+  }
+
+  .social-link {
+    min-width: 38px;
+    min-height: 38px;
+  }
+
+  /* Use mobile-specific body padding so content isn't hidden */
+  body { padding-top: var(--header-height-mobile); }
+}
+
+/* ---------------------------
+   Utility: container class (if used)
+   --------------------------- */
+.container {
+  max-width: var(--container-max);
+  margin: 0 auto;
+  padding: 0 20px;
+  width: 100%;
+}
+
+/* ---------------------------
+   Small accessibility helper
+   --------------------------- */
+a:focus { outline: 3px solid rgba(14,165,233,0.16); outline-offset: 3px; }
