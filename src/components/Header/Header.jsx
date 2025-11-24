@@ -1,6 +1,7 @@
-import React from "react";
-import "./header.css";
-import profileImg from "../../assets/img/Foto.jpg";
+import React from 'react';
+import './header.css';
+import './header.js';
+import profileImg from '../../assets/img/Foto.jpg';
 
 export default function Header() {
     return (
@@ -75,25 +76,18 @@ export default function Header() {
 
                     <a
                         className="social-link"
-                        href="mailto:steven.piedra02@gmail.com" // REEMPLAZA por tu correo
+                        href="mailto:steven.piedra02@gmail.com"
                         aria-label="Email me"
                         title="Email"
                     >
-                        <svg
-                            xmlns="http://www.w3.org/2000/svg"
-                            width="20"
-                            height="20"
-                            viewBox="0 0 24 24"
-                            fill="currentColor"
-                            aria-hidden="true"
-                            focusable="false"
-                        >
-                            <path d="M12 12.713l-11.99-7.713v12h24v-12l-12.01 7.713zm11.99-10.713h-23.99c-.553 0-1 .447-1 1v14c0 .553.447 1 1 1h23.99c.553 0 1-.447 1-1v-14c0-.553-.447-1-1-1zm-11.99 9.287l11.99-7.287h-23.99l11.99 7.287z" />
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                            <rect x="2" y="5" width="20" height="14" rx="2" ry="2" fill="none" stroke="currentColor" strokeWidth="1.6" />
+                            <path d="M3 7.5l8.7 6.1c.6.4 1.4.4 2 0L21 7.5" fill="none" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
                         </svg>
                     </a>
 
                 </nav>
             </div>
-        </ header>
+        </header>
     );
 }

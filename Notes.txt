@@ -32,8 +32,14 @@ npm run dev
 
 Detener el proyecto: Ctrl + C
 
+//COnfigurar para Github pages:
+npm install --save-dev gh-pages
 
+# genera build
+npm run build
 
+# despliega a la rama gh-pages
+npm run deploy
 -------------------------------------------------------
 github
 

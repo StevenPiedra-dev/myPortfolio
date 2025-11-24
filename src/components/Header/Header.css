@@ -1,6 +1,7 @@
+/* Root variables (palette + sizing) */
 :root{
-  --page-bg: #eaf4ff;           /* light blue background */
-  --header-bg: #04376b;         /* dark-blue header */
+  --page-bg: #eaf4ff;          
+  --header-bg: #04376b;         
   --accent: #0ea5e9;
   --header-text: #ffffff;
   --muted-white: rgba(255,255,255,0.92);
@@ -9,13 +10,12 @@
 
   /* header heights (used for body padding so header doesn't overlap content) */
   --header-height-desktop: 88px;
+  --header-height-tablet: 84px;
   --header-height-mobile: 120px;
   --container-max: 1100px;
 }
 
-/* ---------------------------
-   Global reset / layout safety
-   --------------------------- */
+/* Global reset / layout safety */
 *,
 *::before,
 *::after { box-sizing: border-box; }
@@ -29,23 +29,23 @@ html, body {
   font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing:antialiased;
   -moz-osx-font-smoothing:grayscale;
-  overflow-x: hidden; /* Prevent horizontal scroll (fixes elements pushing to the right) */
+  overflow-x: hidden; 
 }
 
-/* Avoid header overlap: add top padding equal to header height.
-   If you keep header fixed, keep these rules in global CSS. */
+/* Avoid header overlap: add top padding equal to header height. */
 body {
   padding-top: var(--header-height-desktop);
 }
 
 /* On smaller screens reduce the top padding */
+@media (max-width: 980px) {
+  body { padding-top: var(--header-height-tablet); }
+}
 @media (max-width: 720px) {
   body { padding-top: var(--header-height-mobile); }
 }
 
-/* ---------------------------
-   Header (full-width sticky)
-   --------------------------- */
+/* Header */
 .site-header {
   position: fixed;
   top: 0;
@@ -58,7 +58,14 @@ body {
   display: flex;
   align-items: center;
   height: var(--header-height-desktop);
-  will-change: transform;
+  will-change: transform, box-shadow;
+  transition: box-shadow 220ms ease, backdrop-filter 220ms ease, height 220ms ease;
+}
+
+/* header state when page is scrolled (polish) */
+.site-header.scrolled {
+  box-shadow: 0 6px 20px rgba(2,6,23,0.12);
+  backdrop-filter: blur(4px);
 }
 
 /* Inner container centers content up to container max width */
@@ -71,11 +78,10 @@ body {
   align-items: center;
   justify-content: space-between;
   gap: 18px;
+  box-sizing: border-box;
 }
 
-/* ---------------------------
-   Brand / Avatar / Text
-   --------------------------- */
+/* Brand / Avatar / Text */
 .brand {
   display: inline-flex;
   align-items: center;
@@ -93,6 +99,12 @@ body {
   border: 2px solid rgba(255,255,255,0.06);
   box-shadow: 0 4px 12px rgba(2,6,23,0.28);
   display: block;
+  transition: transform 220ms ease;
+}
+
+/* shrink avatar slightly when header scrolled */
+.site-header.scrolled .brand-avatar {
+  transform: scale(0.96);
 }
 
 /* Brand text block */
@@ -119,12 +131,10 @@ body {
   opacity: 0.96;
 }
 
-/* If you want the name to link but not change layout: */
+/* clickable name link style */
 .brand-name-link { text-decoration: none; color: inherit; }
 
-/* ---------------------------
-   Social Icons / Right area
-   --------------------------- */
+/* Social Icons / Right area */
 .socials {
   display: flex;
   gap: 10px;
@@ -132,7 +142,7 @@ body {
   justify-content: flex-end;
 }
 
-/* Social link box */
+/* Social link box: stable baseline to avoid layout shifts */
 .social-link {
   display: inline-flex;
   align-items: center;
@@ -144,37 +154,65 @@ body {
   color: var(--header-text);
   text-decoration: none;
   border: 1px solid rgba(255,255,255,0.03);
-  transition: transform 140ms ease, background 140ms ease, box-shadow 140ms ease;
+  transition: transform 150ms cubic-bezier(.2,.9,.2,1), background 150ms ease, box-shadow 150ms ease;
+  transform: translateY(0);
+  box-shadow: 0 4px 10px rgba(2,6,23,0.08);
+  will-change: transform, box-shadow;
+  -webkit-tap-highlight-color: transparent;
 }
 
-/* Hover & focus */
-.social-link:hover,
-.social-link:focus {
-  transform: translateY(-3px);
+/* Hover: gentle lift */
+.social-link:hover {
+  transform: translateY(-4px);
   background: var(--social-hover);
-  box-shadow: 0 6px 18px rgba(2,6,23,0.18);
-  outline: none;
+  box-shadow: 0 8px 20px rgba(2,6,23,0.14);
 }
 
-/* SVG sizing inside links */
+/* Focus: accessible ring, but don't lift */
+.social-link:focus {
+  outline: 3px solid rgba(14,165,233,0.14);
+  outline-offset: 2px;
+  transform: translateY(0);
+}
+
+/* Active / pressed: visual push reset so it doesn't stick lifted */
+.social-link:active,
+.social-link.pressed {
+  transform: translateY(0); /* return to baseline */
+  box-shadow: 0 3px 8px rgba(2,6,23,0.12) inset;
+  transition: transform 60ms linear, box-shadow 60ms linear;
+}
+
+/* Pulse animation for click feedback (JS toggles .pulse) */
+.social-link.pulse {
+  animation: socialPulse 420ms ease;
+}
+@keyframes socialPulse {
+  0% { transform: translateY(0) scale(1); }
+  30% { transform: translateY(-5px) scale(1.03); }
+  100% { transform: translateY(0) scale(1); }
+}
+
+/* svg sizing inside links */
 .social-link svg {
   width: 20px;
   height: 20px;
   display: block;
-  fill: currentColor;
+  vertical-align: middle;
+  stroke: currentColor;
+  fill: currentColor; /* supports both stroke and fill icons */
 }
 
-/* ---------------------------
-   Responsive tweaks
-   --------------------------- */
+/* ensure consistent baseline for filled-path icons */
+.social-link svg path { vector-effect: non-scaling-stroke; }
 
-/* Tablet */
+/* Small-screen layout fixes (prevent right alignment) */
 @media (max-width: 980px) {
   .brand-avatar { width: 64px; height: 64px; }
   .brand-name { font-size: 1.03rem; }
   .brand-roles { font-size: 0.84rem; }
   .social-link { width: 40px; height: 40px; }
-  body { padding-top: 84px; } /* slightly smaller header spacing */
+  body { padding-top: var(--header-height-tablet); }
 }
 
 /* Mobile: stack and center content (prevents right-aligned push) */
@@ -228,14 +266,9 @@ body {
     min-width: 38px;
     min-height: 38px;
   }
-
-  /* Use mobile-specific body padding so content isn't hidden */
-  body { padding-top: var(--header-height-mobile); }
 }
 
-/* ---------------------------
-   Utility: container class (if used)
-   --------------------------- */
+/* Utility: container class (if used) */
 .container {
   max-width: var(--container-max);
   margin: 0 auto;
@@ -243,7 +276,5 @@ body {
   width: 100%;
 }
 
-/* ---------------------------
-   Small accessibility helper
-   --------------------------- */
+/* Accessibility helper */
 a:focus { outline: 3px solid rgba(14,165,233,0.16); outline-offset: 3px; }
