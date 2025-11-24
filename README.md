@@ -40,7 +40,6 @@ The project follows a clean and modular structure, separating components, styles
 You can reach me through any of the following:
 
 GitHub: https://github.com/stevenpiedra-dev
-]
 
 LinkedIn: https://www.linkedin.com/in/stevenpiedra
 
